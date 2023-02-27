@@ -24,7 +24,7 @@ void draw() {
   their mouse position. the mouse range between 500 will give you different shades of red and green. Whilke the else is
   for different shades of red and blue.
   */
-  if (move < 500) {
+  if (mousePressed == true) {
     fill(mouseX, 240, 150);
   } else {
     fill(193, 116, mouseY);
