@@ -6,19 +6,19 @@ const int echoPin = 8; //3rd pin on ultrasound board
 int duration = 0;
 int distance = 0;
 
-const int YLED = 13;
-const int BLED = 12;
-const int WLED = 11;
+const int GLED = 13;
+const int YLED = 12;
+const int RLED = 11;
 
-int reading = 0;
+int val = 0;
 
 void setup() {
   // put your setup code here, to run once:
 
 
+  pinMode(GLED, OUTPUT);
   pinMode(YLED, OUTPUT);
-  pinMode(BLED, OUTPUT);
-  pinMode(WLED, OUTPUT);
+  pinMode(RLED, OUTPUT);
 
   pinMode(trigPin, OUTPUT); 
   pinMode(echoPin, INPUT);
@@ -29,10 +29,7 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  reading = digitalRead(trigPin);
-  reading = digitalRead(echoPin);
-  
-  
+
   digitalWrite(trigPin, HIGH);
   delayMicroseconds(1000);
   digitalWrite(trigPin, LOW);
@@ -41,36 +38,35 @@ void loop() {
   distance = (duration/2) / 28.5 ;
   
   //Serial.print("Distance: ");
-  //Serial.println(distance);// serila montior values
-
-  Serial.write(distance);//sends binary
-     
+  //Serial.println(distance);
+  Serial.write(distance);
   if(distance >= 110 ) {
-    digitalWrite(YLED, HIGH);   // turn on the LED
+    digitalWrite(GLED, HIGH);   // turn on the LED
     //Serial.println("Sound dectected");      
-  }    
-  else {
-    digitalWrite(YLED, LOW);
   }
-  
-  
+  else {
+    digitalWrite(GLED, LOW);
+  }
+
+
   if (distance >= 60 && distance < 110) {
-    digitalWrite(BLED, HIGH);   // turn on the LED
+    digitalWrite(YLED, HIGH);   // turn on the LED
     //Serial.println("Sound dectected");   
   }
   else {
-    digitalWrite(BLED, LOW);
+    digitalWrite(YLED, LOW); 
   }
-  
-    
+
+
   if (distance < 60) {
-    digitalWrite(WLED, HIGH);   // turn on the LED
+    digitalWrite(RLED, HIGH);   // turn on the LED
     //Serial.println("Sound dectected");   
   }
-  else {
-    digitalWrite(WLED, LOW);
+  else { 
+    digitalWrite(RLED, LOW);
   }
   
- 
+  //
+  //distance = calculateDiustance(); //calculating distance intervals on the ultrasound sensor
 
 }
